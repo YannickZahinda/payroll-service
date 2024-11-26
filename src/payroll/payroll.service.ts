@@ -7,12 +7,21 @@ import { Payroll } from './payroll.entity';
 export class PayrollService {
     constructor(@InjectRepository(Payroll) private repo: Repository<Payroll>){}
 
-    calculateNetSalary(salary: number, bonus: number, deductions: number){
-        return salary + (bonus || 0) - (deductions || 0);
+    calculateNetSalary(salary: number, bonus?: number, deductions?: number):number{
+        salary = salary || 0;
+        bonus = bonus || 0;
+        deductions = deductions || 0;
+
+        return salary + bonus - deductions;
 
     }
 
-    generatePaySlip(employee: any, netSalary: number):string {
+    generatePaySlip(employee: {name: string; id: number}, netSalary: number):string {
+
+        if (!employee || !employee.name || typeof netSalary !== 'number'){
+            throw new Error('Invalid employee details or net salary.');
+        }
+        
         return `Payslip for ${employee.name}: \nNet Salary: $${netSalary}`;
     }
 }
