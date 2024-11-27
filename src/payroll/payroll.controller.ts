@@ -9,20 +9,19 @@ export class PayrollController {
     ){}
 
     @Post('calculate')
-    calculatePayroll(@Body() body: CreatePayrollDto){
-        const { salary, bonus, deductions } = body;
-        const netSalary = this.payrollService.calculateNetSalary(salary, bonus, deductions);
+    async calculatePayroll(@Body() body: CreatePayrollDto){
+        const payrollRecord = await this.payrollService.calculateNetSalary(body);
 
-        return {netSalary}
+        return payrollRecord;
     }
 
-    @Post('payslip')
-    generatePaySlip(@Body() body: CreatePayrollDto){
-        const {employeeId, salary, bonus, deductions} = body;
-        const netSalary = this.payrollService.calculateNetSalary(salary, bonus, deductions);
-        const payslip = this.payrollService.generatePaySlip({id: employeeId, name: 'Employee'}, netSalary)
+    // @Post('payslip')
+    // generatePaySlip(@Body() body: CreatePayrollDto){
+    //     const {employeeId, salary, bonus, deductions} = body;
+    //     const netSalary = this.payrollService.calculateNetSalary(body);
+    //     const payslip = this.payrollService.generatePaySlip({id: employeeId, name: 'Employee'}, netSalary)
 
-        return {payslip};
+    //     return {payslip};
 
-    }
+    // }
 }

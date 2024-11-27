@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
@@ -27,4 +28,8 @@ export class Payroll {
 
     @Column()
     benefits: string;
+
+    @Exclude()
+    @Column('decimal', {nullable: true})
+    netSalary: number;
 }
