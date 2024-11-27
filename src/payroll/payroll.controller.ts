@@ -15,13 +15,13 @@ export class PayrollController {
         return payrollRecord;
     }
 
-    // @Post('payslip')
-    // generatePaySlip(@Body() body: CreatePayrollDto){
-    //     const {employeeId, salary, bonus, deductions} = body;
-    //     const netSalary = this.payrollService.calculateNetSalary(body);
-    //     const payslip = this.payrollService.generatePaySlip({id: employeeId, name: 'Employee'}, netSalary)
+    @Post('generate-payslip')
+    async generatePaySlip(@Body() body: CreatePayrollDto){
 
-    //     return {payslip};
+        const paySlip = this.payrollService.generatePaySlip(body);
 
-    // }
+        return paySlip;
+        
+
+    }
 }

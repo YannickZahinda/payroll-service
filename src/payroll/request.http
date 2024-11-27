@@ -12,3 +12,18 @@ Content-Type: application/json
     "deductions": 250,
     "benefits": 500
 }
+
+### Generate Pay Slip
+
+POST http://localhost:3000/payroll/generate-payslip
+Content-Type: application/json
+
+{
+    "employeeId": 23,
+    "name": "Yannick",
+    "position": "Developer",
+    "salary": 2000,
+    "bonus": 600,
+    "deductions": 250,
+    "benefits": 500
+}

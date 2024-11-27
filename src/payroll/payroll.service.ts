@@ -19,7 +19,7 @@ export class PayrollService {
 
     // }
 
-    calculateNetSalary(payrollDto: CreatePayrollDto) {
+    calculateNetSalary(payrollDto: CreatePayrollDto){
         const globalSalary = this.repo.create(payrollDto);
         const netSalary = globalSalary.salary + (globalSalary.bonus || 0) - (globalSalary.deductions || 0);
 
@@ -29,12 +29,18 @@ export class PayrollService {
         return this.repo.save(globalSalary)
     }
 
-    generatePaySlip(employee: {name: string; id: number}, netSalary: number):string {
+    async generatePaySlip(payrollDto: CreatePayrollDto): Promise<string>  {
 
-        if (!employee || !employee.name || typeof netSalary !== 'number'){
-            throw new Error('Invalid employee details or net salary.');
-        }
+        const paySlip = this.repo.create(payrollDto);
+
+        const netSalary = paySlip.salary + (paySlip.bonus || 0) - (paySlip.deductions || 0);
+
+        paySlip.netSalary = netSalary;
+
+
+        await this.repo.save(paySlip);
+
         
-        return `Payslip for ${employee.name}: \nNet Salary: $${netSalary}`;
+        return `Payslip for ${paySlip.name}: \nPosition: ${paySlip.position} \nSalary: $${paySlip.salary} \nBonus: $${paySlip.bonus } \nDeductions: $${paySlip.deductions || 0} \nFriendly Net Salary :) $${netSalary}`;
     }
 }
