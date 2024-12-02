@@ -1,7 +1,8 @@
-import { IsString, IsNumber } from "class-validator";
+import { IsString, IsNumber, IsNotEmpty } from "class-validator";
 
 export class CreatePayrollDto {
     @IsNumber()
+    @IsNotEmpty()
     employeeId: number;
     
     @IsString()
@@ -20,5 +21,5 @@ export class CreatePayrollDto {
     deductions: number;
 
     @IsNumber()
-    benefits: string;
+    benefits: number;
 }

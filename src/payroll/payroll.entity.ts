@@ -1,5 +1,5 @@
 import { Exclude } from "class-transformer";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { AfterInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
@@ -27,9 +27,15 @@ export class Payroll {
     deductions: number;
 
     @Column()
-    benefits: string;
+    benefits: number;
 
     @Exclude()
     @Column('decimal', {nullable: true})
     netSalary: number;
+
+    @AfterInsert()
+    logInsert(){
+        console.log('Inserted employee with id', this.employeeId);
+        
+    }
 }

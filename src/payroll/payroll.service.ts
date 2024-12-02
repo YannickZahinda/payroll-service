@@ -8,17 +8,6 @@ import { CreatePayrollDto } from './dtos/create-payroll.dto';
 export class PayrollService {
     constructor(@InjectRepository(Payroll) private repo: Repository<Payroll>){}
 
-    // calculateNetSalary(salary: number, bonus?: number, deductions?: number):number{
-    //     salary = salary || 0;
-    //     bonus = bonus || 0;
-    //     deductions = deductions || 0;
-
-    //     const netSalary = this.repo.create()
-
-    //     return salary + bonus - deductions;
-
-    // }
-
     calculateNetSalary(payrollDto: CreatePayrollDto){
         const globalSalary = this.repo.create(payrollDto);
         const netSalary = globalSalary.salary + (globalSalary.bonus || 0) - (globalSalary.deductions || 0);

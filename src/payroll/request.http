@@ -1,14 +1,14 @@
 ### calculate net salary
 
-POST http://localhost:3000/payroll/calculate
+POST http://localhost:3001/payroll/calculate
 Content-Type: application/json
 
 {
-    "employeeId": 23,
-    "name": "Yannick",
-    "position":"Developer",
-    "salary": 2000,
-    "bonus": 600,
+    "employeeId": 2,
+    "name": "Zeddicus",
+    "position":"Senior dev",
+    "salary": 3000,
+    "bonus": 800,
     "deductions": 250,
     "benefits": 500
 }
